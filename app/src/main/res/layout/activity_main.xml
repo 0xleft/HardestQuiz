@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="331dp"
+        android:layout_height="237dp"
+        android:layout_marginTop="158dp"
+        android:text="@string/question"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/fourth_choice"
+        android:layout_width="167dp"
+        android:layout_height="109dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="90dp"
+        android:text="fourth"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/third_choice"
+        app:layout_constraintTop_toBottomOf="@+id/second_choice" />
+
+    <Button
+        android:id="@+id/second_choice"
+        android:layout_width="167dp"
+        android:layout_height="109dp"
+        android:layout_marginTop="134dp"
+        android:layout_marginEnd="39dp"
+        android:text="second"
+        app:layout_constraintBottom_toTopOf="@+id/fourth_choice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/first_choice"
+        app:layout_constraintTop_toBottomOf="@+id/question" />
+
+    <Button
+        android:id="@+id/first_choice"
+        android:layout_width="167dp"
+        android:layout_height="109dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="134dp"
+        android:text="first"
+        app:layout_constraintBottom_toTopOf="@+id/third_choice"
+        app:layout_constraintEnd_toStartOf="@+id/second_choice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/question" />
+
+    <Button
+        android:id="@+id/third_choice"
+        android:layout_width="167dp"
+        android:layout_height="109dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginBottom="90dp"
+        android:text="third"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/fourth_choice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/first_choice" />
+
+    <TextView
+        android:id="@+id/streak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="171dp"
+        android:layout_marginTop="58dp"
+        android:layout_marginEnd="171dp"
+        android:layout_marginBottom="81dp"
+        android:text="streak"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/question"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
