@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -24,27 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        buttons.add(findViewById(R.id.first_choice));
-        buttons.add(findViewById(R.id.second_choice));
-        buttons.add(findViewById(R.id.third_choice));
-        buttons.add(findViewById(R.id.fourth_choice));
-
-        resetButtonColor();
-
-        questionTextView = findViewById(R.id.question);
-        streakTextView = findViewById(R.id.streak);
-
         AsyncHelper.runAsync(this::setQuestion);
-
-        for (Button button : buttons) {
-            button.setOnClickListener(v -> {
-                Button clickedButton = (Button) v;
-                String answer = clickedButton.getText().toString();
-
-                checkAnswer(answer, this.question);
-            });
-        }
     }
 
     private void checkAnswer(@NotNull String answer, @NotNull Question question) {
@@ -67,34 +48,71 @@ public class MainActivity extends AppCompatActivity {
             if (i != question.getCorrectAnswerIndex() - 1) {
                 buttons.get(i).setBackgroundColor(getResources().getColor(R.color.red));
             }
+
+            buttons.get(i).setTextColor(getResources().getColor(R.color.black));
         }
 
-        AsyncHelper.runAsync(this::setQuestion);
+        AsyncHelper.runAsync(() -> {
+            try {
+                Thread.sleep(2000);
+                setQuestion();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void resetButtonColor() {
         for (Button button : buttons) {
             button.setBackgroundColor(getResources().getColor(R.color.blue, getTheme()));
+            button.setTextColor(getResources().getColor(R.color.white, getTheme()));
             button.setClickable(true);
         }
     }
 
     private void setQuestion(@NotNull Question question) {
+        Log.e("SHIZE", "setQuestion");
         this.question = question;
-        for (int i = 0; i < buttons.size(); i++) {
+        buttons = new ArrayList<>();
+        buttons.add(findViewById(R.id.first_choice));
+        buttons.add(findViewById(R.id.second_choice));
+        buttons.add(findViewById(R.id.third_choice));
+        buttons.add(findViewById(R.id.fourth_choice));
+
+        resetButtonColor();
+
+        questionTextView = findViewById(R.id.question);
+        streakTextView = findViewById(R.id.streak);
+        questionTextView.setText(question.getQuestion());
+
+        for (int i = 0; i < question.getAnswers().length; i++) {
             buttons.get(i).setText(question.getAnswers()[i]);
         }
-        questionTextView.setText(question.getQuestion());
-        resetButtonColor();
+
+        for (Button button : buttons) {
+            button.setOnClickListener(v -> {
+                Button clickedButton = (Button) v;
+                String answer = clickedButton.getText().toString();
+
+                checkAnswer(answer, this.question);
+            });
+        }
     }
 
     private void setQuestion() {
+        runOnUiThread(() -> {
+            setContentView(R.layout.loading);
+        });
         Log.e("SHEIZE", "setQuestion");
         Question question = QuestionGenerator.generateQuestion();
         if (question == null) {
             setQuestion();
             return;
         }
-        setQuestion(question);
+
+        runOnUiThread(() -> {
+            setContentView(R.layout.activity_main);
+            setQuestion(question);
+        });
     }
 }

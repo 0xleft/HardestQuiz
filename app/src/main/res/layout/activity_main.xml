@@ -31,30 +31,6 @@
         app:layout_constraintTop_toBottomOf="@+id/second_choice" />
 
     <Button
-        android:id="@+id/second_choice"
-        android:layout_width="167dp"
-        android:layout_height="109dp"
-        android:layout_marginTop="134dp"
-        android:layout_marginEnd="39dp"
-        android:text="second"
-        app:layout_constraintBottom_toTopOf="@+id/fourth_choice"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/first_choice"
-        app:layout_constraintTop_toBottomOf="@+id/question" />
-
-    <Button
-        android:id="@+id/first_choice"
-        android:layout_width="167dp"
-        android:layout_height="109dp"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="134dp"
-        android:text="first"
-        app:layout_constraintBottom_toTopOf="@+id/third_choice"
-        app:layout_constraintEnd_toStartOf="@+id/second_choice"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/question" />
-
-    <Button
         android:id="@+id/third_choice"
         android:layout_width="167dp"
         android:layout_height="109dp"
@@ -65,6 +41,30 @@
         app:layout_constraintEnd_toStartOf="@+id/fourth_choice"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/first_choice" />
+
+    <Button
+        android:id="@+id/first_choice"
+        android:layout_width="167dp"
+        android:layout_height="109dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="50dp"
+        android:text="first"
+        app:layout_constraintBottom_toTopOf="@+id/third_choice"
+        app:layout_constraintEnd_toStartOf="@+id/second_choice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/question" />
+
+    <Button
+        android:id="@+id/second_choice"
+        android:layout_width="167dp"
+        android:layout_height="109dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="39dp"
+        android:text="second"
+        app:layout_constraintBottom_toTopOf="@+id/fourth_choice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/first_choice"
+        app:layout_constraintTop_toBottomOf="@+id/question" />
 
     <TextView
         android:id="@+id/streak"
