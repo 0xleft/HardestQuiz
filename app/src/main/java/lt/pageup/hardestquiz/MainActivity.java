@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.loading);
         AsyncHelper.runAsync(this::setQuestion);
     }
 
@@ -52,14 +52,7 @@ public class MainActivity extends AppCompatActivity {
             buttons.get(i).setTextColor(getResources().getColor(R.color.black));
         }
 
-        AsyncHelper.runAsync(() -> {
-            try {
-                Thread.sleep(2000);
-                setQuestion();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
+        AsyncHelper.runAsync(this::setQuestion);
     }
 
     private void resetButtonColor() {
@@ -100,13 +93,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setQuestion() {
-        runOnUiThread(() -> {
-            setContentView(R.layout.loading);
-        });
         Log.e("SHEIZE", "setQuestion");
         Question question = QuestionGenerator.generateQuestion();
-        if (question == null) {
-            setQuestion();
+
+        if (question.getQuestion().equals("INTERNET")) {
+            runOnUiThread(() -> {
+                setContentView(R.layout.no_internet);
+                Button retryButton = findViewById(R.id.retry_button);
+                retryButton.setOnClickListener(v -> {
+                    setContentView(R.layout.loading);
+                    AsyncHelper.runAsync(this::setQuestion);
+                });
+            });
+            return;
+        }
+
+        if (question.getQuestion().equals("JSON")) {
+            runOnUiThread(() -> {
+                setContentView(R.layout.json_error);
+                Button retryButton = findViewById(R.id.retry_button);
+                retryButton.setOnClickListener(v -> {
+                    setContentView(R.layout.loading);
+                    AsyncHelper.runAsync(this::setQuestion);
+                });
+            });
             return;
         }
 

@@ -2,6 +2,7 @@ package lt.pageup.hardestquiz;
 
 import android.util.Log;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,7 +14,7 @@ import java.net.URL;
 
 public class QuestionGenerator {
 
-    public static Question generateQuestion() {
+    public static @NotNull Question generateQuestion() {
         String apiUrl = "https://pageup.lt/api/ai/generate_random_quiz";
 
         try {
@@ -21,6 +22,7 @@ public class QuestionGenerator {
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setConnectTimeout(5000);
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String inputLine;
             StringBuilder response = new StringBuilder();
@@ -43,9 +45,12 @@ public class QuestionGenerator {
             connection.disconnect();
 
             return new Question(question, answers, correctAnswerIndex);
-        } catch (IOException | JSONException e) {
-            Log.w("SHEIZE", e);
-            return null;
+        } catch (IOException e) {
+            Log.e("QuestionGenerator", "Failed to generate question", e);
+            return new Question("INTERNET", new String[]{"", "", "", ""}, 1);
+        } catch (JSONException e) {
+            Log.e("QuestionGenerator", "Failed to parse JSON", e);
+            return new Question("JSON", new String[]{"", "", "", ""}, 1);
         }
     }
 }
