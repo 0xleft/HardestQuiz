@@ -78,6 +78,12 @@ public class MainActivity extends AppCompatActivity {
         streakTextView = findViewById(R.id.streak);
         questionTextView.setText(question.getQuestion());
 
+        if (question.getQuestion().length() > 80) {
+            questionTextView.setTextSize(20);
+        } else {
+            questionTextView.setTextSize(34);
+        }
+
         for (int i = 0; i < question.getAnswers().length; i++) {
             buttons.get(i).setText(question.getAnswers()[i]);
         }
